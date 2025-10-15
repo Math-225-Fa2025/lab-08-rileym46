@@ -256,7 +256,38 @@ first_ten
 
 4.  Click on the next page, and grab its url. Fill in the blank in to define a new object: `second_url`. Copy-paste code from top of the R script to scrape the new set of art pieces, and save the resulting data frame as `second_ten`.
 
-If you haven't done so recently, c*ommit and push your changes to GitHub with an appropriate commit message. Make sure to commit and push all changed files so that your Git pane is cleared up afterwards.*
+```{r second-ten, eval = TRUE}
+second_ten <- "https://collections.ed.ac.uk/art/search/*:*/Collection:%22edinburgh+college+of+art%7C%7C%7CEdinburgh+College+of+Art%22?offset=10"
+
+page <- read_html(second_ten)
+
+title <- page %>%
+  html_nodes(".iteminfo") %>%
+  html_node(".record-title a") %>%
+  html_text()
+title
+
+artist <- page %>%
+  html_nodes(".iteminfo") %>%
+  html_node(".artist") %>%
+  html_text()
+artist
+
+link <- page %>%
+  html_nodes(".iteminfo") %>%
+  html_node(".record-title a") %>%         
+  html_attr("href") %>%
+  str_replace("\\.", "https://collections.ed.ac.uk/")
+link
+second_ten <- tibble(
+  title = title,
+  artist = artist,
+  link = link
+)
+second_ten
+
+```
+If you haven't done so recently, *commit and push your changes to GitHub with an appropriate commit message. Make sure to commit and push all changed files so that your Git pane is cleared up afterwards.*
 
 ## Functions
 
