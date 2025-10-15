@@ -1,5 +1,6 @@
 ---
 title: "Lab 08 - University of Edinburgh Art Collection"
+author: "Riley Martindale"
 output: 
   tufte::tufte_html:
     css: ../lab.css
